@@ -1,0 +1,75 @@
+﻿本机
+
+打Jar包
+mvn clean package -Dmaven.test.skip=true
+
+build docker 镜像
+docker build -f Dockerfile-test -t registry.lierda.com/senthink/columbia-lima:latest .
+
+
+push docker 镜像
+docker push registry.lierda.com/senthink/columbia-lima:latest
+
+
+
+--------------------------
+
+服务器
+
+查看镜像
+docker images
+
+拉取镜像
+docker pull registry.lierda.com/senthink/columbia-lima:latest
+
+停止columbia容器
+docker stop columbia
+
+移除columbia容器
+docker rm columbia
+
+创建并运行columbia容器
+dc up -d columbia
+
+docker run -d -p 9073:9073 127.0.0.1:5000/oatest:latest
+
+docker run -d -p 5000:5000 --restart=always --name=registry-srv
+
+------------------------------------------
+docker 常用指令
+查看服务
+docker ps -a
+
+查看日志
+
+例子：
+docker logs -f --tail 1000 columbia
+
+docker logs -f --tail 1000 columbia | grep uplink | grep V1E0019800A182240007
+
+
+docker exec -it mars /bin/bash
+
+cat docker-compose.yml 
+
+----------------------------------------------------
+ubuntu 下部署docker
+sudo apt-get remove docker \
+               docker-engine \
+               docker.io
+
+$ sudo apt-get update
+
+$ sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+
+
+获取本地仓库镜像列表
+
+curl -X GET http://47.99.123.83:5000/v2/_catalog
+
+
+

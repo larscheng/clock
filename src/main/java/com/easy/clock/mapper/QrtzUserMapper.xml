@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+<mapper namespace="com.easy.clock.dao.QrztUserMapper">
+	<resultMap id="BaseResultMap" type="com.easy.clock.entity.QrtzUser" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_code" property="userCode" jdbcType="VARCHAR" />
+		<result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+		<result column="user_client_id" property="userClientId" jdbcType="VARCHAR" />
+		<result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+		<result column="gmt_create" property="gmtCreate" jdbcType="DATE" />
+	</resultMap>
+
+
+
+    <select id="getAllUser" resultMap="BaseResultMap">
+			SELECT
+				*
+			FROM
+				qrtz_user
+			order by gmt_create
+    </select>
+
+	<insert id="addUser" parameterType="com.easy.clock.entity.QrtzUser">
+		insert into qrtz_user (user_code,user_password,user_client_id,user_email,gmt_create)
+			value
+		(#{userCode},#{userPassword},#{userClientId},#{userEmail},#{gmtCreate})
+	</insert>
+</mapper>
